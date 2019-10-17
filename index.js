@@ -173,7 +173,7 @@ export const openWXApp = wrap(native.openWXApp);
  * @return {Promise}
  */
 export function openMiniProgram(id, type, path) {
-  return _sendRequestAndWaitResp(() => {
+  return sendRequestAndWaitResp(() => {
     wrap(native.openMiniProgram)({ id, type, path });
   }, 'LaunchMiniProgram.Resp');
 }
@@ -184,7 +184,7 @@ export function openMiniProgram(id, type, path) {
  * @return {Promise}
  */
 export function sendAuthRequest(scopes, state) {
-  return _sendRequestAndWaitResp(() => {
+  return sendRequestAndWaitResp(() => {
     wrap(native.sendAuthRequest)(scopes, state);
   }, 'SendAuth.Resp');
 }
@@ -341,7 +341,7 @@ export function pay(data) {
   if (Platform.OS === 'android')
     data.timeStamp = String(data.timeStamp);
 
-  return _sendRequestAndWaitResp(() => {
+  return sendRequestAndWaitResp(() => {
     return new Promise((resolve, reject) => {
       native.pay(data, res => {
         if (res) reject(res);
